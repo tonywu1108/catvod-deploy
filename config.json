@@ -1,5 +1,5 @@
 {
-  "spider": "https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/spider/custom_spider_v1.jar;md5;7f0afad1edd2892b51e412295450e66e",
+  "spider": "https://tonywu1108.github.io/catvod-deploy/spider/custom_spider_v1.jar;md5;7f0afad1edd2892b51e412295450e66e",
   "sites": [
     {
       "key": "bili",

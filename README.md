@@ -3,6 +3,7 @@
 CatVodSpider 的 GitHub 托管目录，只包含运行所需的静态文件。
 
 仓库：https://github.com/tonywu1108/catvod-deploy
+站点：https://tonywu1108.github.io/catvod-deploy/
 
 ## 目录内容
 
@@ -18,36 +19,38 @@ CatVodSpider 的 GitHub 托管目录，只包含运行所需的静态文件。
 ## 用户配置地址（推荐）
 
 ```text
-https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/config.json
+https://tonywu1108.github.io/catvod-deploy/config.json
 ```
 
-如果 raw 无法访问，可换成 GitHub Pages：
+备选（可能受网络影响）：
 
 ```text
-https://tonywu1108.github.io/catvod-deploy/config.json
+https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/config.json
+https://cdn.jsdelivr.net/gh/tonywu1108/catvod-deploy@main/config.json
 ```
 
 ## 访问地址
 
 | 用途 | 地址 |
 | --- | --- |
-| 配置（Raw） | `https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/config.json` |
 | 配置（Pages） | `https://tonywu1108.github.io/catvod-deploy/config.json` |
-| JAR（Raw） | `https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/spider/custom_spider_v1.jar` |
+| 配置（Raw） | `https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/config.json` |
 | JAR（Pages） | `https://tonywu1108.github.io/catvod-deploy/spider/custom_spider_v1.jar` |
+| JAR（Raw） | `https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/spider/custom_spider_v1.jar` |
 | JAR（jsDelivr） | `https://cdn.jsdelivr.net/gh/tonywu1108/catvod-deploy@main/spider/custom_spider_v1.jar` |
 
-> `config.json` 里的 `spider` 当前指向 **Raw** 地址，实测可直接下载且 MD5 一致。
-> 若用户所在网络访问不了 raw，可改为 Pages 或 jsDelivr 地址，注意同步修改 MD5。
+> `config.json` 里的 `spider` 当前指向 **GitHub Pages**。
+> 若 Pages 访问不了，可改成上表中的 Raw 或 jsDelivr 地址，并同步更新 MD5。
+> Raw 地址有 CDN 缓存，推送后可能需要几分钟才更新。
 
 ## 验证
 
 ```powershell
 # 配置
-Invoke-WebRequest "https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/config.json" -UseBasicParsing
+(Invoke-WebRequest "https://tonywu1108.github.io/catvod-deploy/config.json" -UseBasicParsing).Content
 
 # JAR 大小与 MD5
-Invoke-WebRequest "https://raw.githubusercontent.com/tonywu1108/catvod-deploy/main/spider/custom_spider_v1.jar" -OutFile "$env:TEMP\check.jar" -UseBasicParsing
+Invoke-WebRequest "https://tonywu1108.github.io/catvod-deploy/spider/custom_spider_v1.jar" -OutFile "$env:TEMP\check.jar" -UseBasicParsing
 (Get-Item "$env:TEMP\check.jar").Length
 (Get-FileHash -Algorithm MD5 "$env:TEMP\check.jar").Hash.ToLowerInvariant()
 ```
@@ -72,7 +75,7 @@ git commit -m "update spider jar to v2"
 git push
 ```
 
-5. 等 1~2 分钟让 Raw / Pages 生效。
+5. 等 Pages 重新构建（约 1 分钟），在 Actions 里看到 `pages build and deployment` 变绿即可。
 
 ## 注意
 
